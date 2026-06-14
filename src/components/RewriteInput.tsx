@@ -1,4 +1,4 @@
-import type { RewriteCategory } from '../data/types'
+import { REWRITE_CATEGORIES, type RewriteCategory } from '../data/types'
 
 interface RewriteInputProps {
   value: string
@@ -7,10 +7,14 @@ interface RewriteInputProps {
 }
 
 export function RewriteInput({ value, onChange, category }: RewriteInputProps) {
+  const categoryLabel = category
+    ? REWRITE_CATEGORIES.find((c) => c.id === category)?.label
+    : null
+
   return (
     <section className="rewrite-input" aria-label="Rewrite display">
       <label className="rewrite-input__label" htmlFor="rewrite-field">
-        {category ? 'Live rewrite (display)' : 'Your rewrite will appear here'}
+        {categoryLabel ? `${categoryLabel} rewrite (display)` : 'Your rewrite will appear here'}
       </label>
       <textarea
         id="rewrite-field"

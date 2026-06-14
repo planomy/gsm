@@ -1,8 +1,11 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
+import gsmLogo from './assets/gsm-logo.png'
+import { ChallengeStrip } from './components/ChallengeStrip'
 import { RewriteInput } from './components/RewriteInput'
 import { SentenceDisplay } from './components/SentenceDisplay'
 import { SpinWheel } from './components/SpinWheel'
 import { WordBankPanel } from './components/WordBankPanel'
+import { randomChallenge } from './data/challenges'
 import { randomSentence } from './data/sentences'
 import type { RewriteCategory, Sentence } from './data/types'
 import './App.css'
@@ -12,6 +15,11 @@ function App() {
   const [category, setCategory] = useState<RewriteCategory | null>(null)
   const [spinning, setSpinning] = useState(false)
   const [draft, setDraft] = useState('')
+  const [challenge, setChallenge] = useState(() => randomChallenge())
+
+  const shuffleChallenge = useCallback(() => {
+    setChallenge((current) => randomChallenge(current.id))
+  }, [])
 
   const pickSentence = useCallback(() => {
     let next = randomSentence()
@@ -21,6 +29,7 @@ function App() {
     setSentence(next)
     setCategory(null)
     setDraft('')
+    setChallenge((current) => randomChallenge(current.id))
   }, [sentence.id, sentence.text])
 
   const handleSpinComplete = useCallback((picked: RewriteCategory) => {
@@ -28,16 +37,17 @@ function App() {
     setSpinning(false)
   }, [])
 
-  const subtitle = useMemo(() => {
-    if (!category) return 'Spin the wheel to pick a rewrite style'
-    return `Rewrite using a ${category.toUpperCase()} starter`
-  }, [category])
-
   return (
     <div className="gsm">
       <header className="gsm__header">
-        <h1 className="gsm__title">The Great Sentence Machine</h1>
-        <p className="gsm__subtitle">{subtitle}</p>
+        <img
+          src={gsmLogo}
+          alt="The Great Sentence Machine"
+          className="gsm__logo"
+          width={220}
+          height={220}
+        />
+        <ChallengeStrip challenge={challenge} onShuffle={shuffleChallenge} />
       </header>
 
       <main className="gsm__main">
