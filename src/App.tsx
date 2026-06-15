@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { ChallengeStrip } from './components/ChallengeStrip'
+import { HeroPanel, type HeroMode } from './components/HeroPanel'
 import { MachineLogo } from './components/MachineLogo'
 import { RewriteInput } from './components/RewriteInput'
 import { SentenceDisplay } from './components/SentenceDisplay'
@@ -16,6 +16,7 @@ function App() {
   const [spinning, setSpinning] = useState(false)
   const [draft, setDraft] = useState('')
   const [challenge, setChallenge] = useState(() => randomChallenge())
+  const [heroMode, setHeroMode] = useState<HeroMode>('challenge')
 
   const shuffleChallenge = useCallback(() => {
     setChallenge((current) => randomChallenge(current.id))
@@ -41,11 +42,20 @@ function App() {
     <div className="gsm">
       <header className="gsm__header">
         <MachineLogo busy={spinning} />
-        <ChallengeStrip challenge={challenge} onShuffle={shuffleChallenge} />
+        <HeroPanel
+          mode={heroMode}
+          onModeChange={setHeroMode}
+          challenge={challenge}
+          onShuffle={shuffleChallenge}
+        />
       </header>
 
       <main className="gsm__main">
-        <SentenceDisplay sentence={sentence} onNewSentence={pickSentence} />
+        <SentenceDisplay
+          sentence={sentence}
+          onNewSentence={pickSentence}
+          highlightStarter={heroMode === 'problem'}
+        />
 
         <section className="gsm__wheel-section" aria-label="Rewrite category wheel">
           <SpinWheel

@@ -157,8 +157,8 @@
   }
 }
 
-/* Challenge strip */
-.challenge-strip {
+/* Hero panel — challenge / the problem toggle */
+.hero-panel {
   position: relative;
   flex: 1;
   min-width: 0;
@@ -166,7 +166,7 @@
   align-items: center;
 }
 
-.challenge-strip__glow {
+.hero-panel__glow {
   position: absolute;
   inset: -2px;
   border-radius: 18px;
@@ -181,7 +181,7 @@
   filter: blur(0.5px);
 }
 
-.challenge-strip__inner {
+.hero-panel__inner {
   position: relative;
   width: 100%;
   padding: 0.85rem 1.1rem 0.95rem;
@@ -193,7 +193,40 @@
     0 8px 28px rgba(0, 0, 0, 0.35);
 }
 
-.challenge-strip__top {
+.hero-panel__toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+  padding: 0.2rem;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.hero-panel__tab {
+  padding: 0.45rem 0.65rem;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: #c4b5fd;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.hero-panel__tab:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.hero-panel__tab--active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--purple) 0%, #9333ea 100%);
+  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.45);
+}
+
+.hero-panel__top {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -201,14 +234,14 @@
   margin-bottom: 0.35rem;
 }
 
-.challenge-strip__star {
+.hero-panel__star {
   font-size: 1.15rem;
   color: #67e8f9;
   filter: drop-shadow(0 0 6px rgba(103, 232, 249, 0.6));
   line-height: 1;
 }
 
-.challenge-strip__eyebrow {
+.hero-panel__eyebrow {
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -216,7 +249,7 @@
   color: #67e8f9;
 }
 
-.challenge-strip__tier {
+.hero-panel__tier {
   margin-left: auto;
   padding: 0.15rem 0.55rem;
   border-radius: 999px;
@@ -225,25 +258,25 @@
   letter-spacing: 0.02em;
 }
 
-.challenge-strip__tier--easy {
+.hero-panel__tier--easy {
   background: rgba(34, 197, 94, 0.22);
   color: #86efac;
   border: 1px solid rgba(134, 239, 172, 0.35);
 }
 
-.challenge-strip__tier--medium {
+.hero-panel__tier--medium {
   background: rgba(59, 130, 246, 0.22);
   color: #93c5fd;
   border: 1px solid rgba(147, 197, 253, 0.35);
 }
 
-.challenge-strip__tier--hard {
+.hero-panel__tier--hard {
   background: rgba(236, 72, 153, 0.22);
   color: #f9a8d4;
   border: 1px solid rgba(249, 168, 212, 0.35);
 }
 
-.challenge-strip__badge {
+.hero-panel__badge {
   margin: 0 0 0.35rem;
   font-size: clamp(1.35rem, 3vw, 1.75rem);
   font-weight: 700;
@@ -251,7 +284,7 @@
   color: #fff;
 }
 
-.challenge-strip__text {
+.hero-panel__text {
   margin: 0;
   font-size: clamp(1rem, 2.2vw, 1.2rem);
   font-weight: 500;
@@ -259,7 +292,7 @@
   color: #e9e0ff;
 }
 
-.challenge-strip__shuffle {
+.hero-panel__shuffle {
   margin-top: 0.65rem;
   padding: 0;
   border: none;
@@ -272,8 +305,43 @@
   text-underline-offset: 3px;
 }
 
-.challenge-strip__shuffle:hover {
+.hero-panel__shuffle:hover {
   color: #67e8f9;
+}
+
+.hero-panel__panel--problem {
+  padding-top: 0.15rem;
+}
+
+.hero-panel__problem-title {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.2rem, 2.8vw, 1.55rem);
+  font-weight: 700;
+  color: #fecaca;
+}
+
+.hero-panel__problem-hint {
+  margin: 0 0 0.75rem;
+  font-size: clamp(0.92rem, 2vw, 1.05rem);
+  font-weight: 500;
+  line-height: 1.35;
+  color: #e9e0ff;
+}
+
+.hero-panel__problem-words {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.65rem;
+}
+
+.hero-panel__problem-word {
+  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  font-weight: 800;
+  color: #ef4444;
+  text-shadow: 0 0 18px rgba(239, 68, 68, 0.35);
 }
 
 @media (max-width: 640px) {
@@ -286,7 +354,7 @@
     align-self: center;
   }
 
-  .challenge-strip__tier {
+  .hero-panel__tier {
     margin-left: 0;
   }
 }
@@ -341,6 +409,18 @@
 
 .sentence-display__new:hover {
   background: rgba(124, 58, 237, 0.32);
+}
+
+.sentence-display__badge--problem {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fecaca;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+}
+
+.sentence-display__problem-word {
+  color: #ef4444;
+  font-weight: 800;
+  text-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
 }
 
 .sentence-display__text {
