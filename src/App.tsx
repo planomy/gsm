@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
-import gsmLogo from './assets/gsm-logo.png'
 import { ChallengeStrip } from './components/ChallengeStrip'
+import { MachineLogo } from './components/MachineLogo'
 import { RewriteInput } from './components/RewriteInput'
 import { SentenceDisplay } from './components/SentenceDisplay'
 import { SpinWheel } from './components/SpinWheel'
@@ -40,13 +40,7 @@ function App() {
   return (
     <div className="gsm">
       <header className="gsm__header">
-        <img
-          src={gsmLogo}
-          alt="The Great Sentence Machine"
-          className="gsm__logo"
-          width={220}
-          height={220}
-        />
+        <MachineLogo busy={spinning} />
         <ChallengeStrip challenge={challenge} onShuffle={shuffleChallenge} />
       </header>
 

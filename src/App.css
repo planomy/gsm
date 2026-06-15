@@ -31,6 +31,132 @@
   filter: drop-shadow(0 4px 12px rgba(76, 29, 149, 0.2));
 }
 
+/* Animated machine logo */
+.machine-logo {
+  position: relative;
+  flex-shrink: 0;
+  align-self: center;
+  width: clamp(144px, 21.6vw, 240px);
+  filter: drop-shadow(0 4px 12px rgba(76, 29, 149, 0.2));
+  animation: machine-idle 5s ease-in-out infinite;
+}
+
+.machine-logo__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+}
+
+.machine-logo__fx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.machine-logo__gauge-needle {
+  position: absolute;
+  left: 71.8%;
+  top: 17.5%;
+  width: 1.5%;
+  height: 7%;
+  transform-origin: 50% 92%;
+  border-radius: 999px;
+  background: rgba(30, 20, 50, 0.55);
+  animation: gauge-wiggle 3.5s ease-in-out infinite;
+}
+
+.machine-logo__gear {
+  position: absolute;
+  color: rgba(140, 130, 155, 0.55);
+  mix-blend-mode: multiply;
+}
+
+.machine-logo__gear--lg {
+  left: 46.5%;
+  top: 71%;
+  width: 11%;
+  animation: gear-spin 5s linear infinite;
+}
+
+.machine-logo__gear--md {
+  left: 54%;
+  top: 75%;
+  width: 7.5%;
+  animation: gear-spin-rev 3.2s linear infinite;
+}
+
+.machine-logo__gear--sm {
+  left: 41.5%;
+  top: 77%;
+  width: 5.5%;
+  animation: gear-spin 2.4s linear infinite;
+}
+
+.machine-logo--busy {
+  animation: machine-idle 2.5s ease-in-out infinite;
+}
+
+.machine-logo--busy .machine-logo__gear--lg {
+  animation-duration: 1.2s;
+}
+
+.machine-logo--busy .machine-logo__gear--md {
+  animation-duration: 0.9s;
+}
+
+.machine-logo--busy .machine-logo__gear--sm {
+  animation-duration: 0.7s;
+}
+
+@keyframes machine-idle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes gauge-wiggle {
+  0%,
+  100% {
+    transform: rotate(-18deg);
+  }
+  50% {
+    transform: rotate(22deg);
+  }
+}
+
+@keyframes gear-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gear-spin-rev {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .machine-logo,
+  .machine-logo__gauge-needle,
+  .machine-logo__gear {
+    animation: none !important;
+  }
+}
+
 /* Challenge strip */
 .challenge-strip {
   position: relative;
